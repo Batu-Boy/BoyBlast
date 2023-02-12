@@ -52,11 +52,6 @@ public class GridInitializer : MonoBase
                 Cell cell = _grid.GetCell(x, y);
                 block.Initialize(GetRandomColor(),cell);
                 cell.SetElement(block);
-                if (_grid.TryGetElementAs<Block>(x, y, out var element))
-                {
-                    
-                }
-                
             }
         }
         

@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 6489620198500881546}
   - component: {fileID: 1498926740059688079}
   m_Layer: 3
-  m_Name: BlockGraphic
+  m_Name: Block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -369,8 +369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52858326fc5cb4b1abe09bfeaa3a8574, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ElementGraphic: {fileID: 6489620198500881546}
   canFall: 0
-  _blockGraphic: {fileID: 6489620198500881546}
+  blockGraphic: {fileID: 6489620198500881546}
   blockColors: {fileID: 11400000, guid: cc9cc187c8623460b846a1effbebe947, type: 2}
 --- !u!114 &6489620198500881546
 MonoBehaviour:
@@ -384,7 +385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f5307d8be99462398e3aa5a684df5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particleHandler: {fileID: 1498926740059688079}
   glow: {fileID: 7831549410923068570}
   fallAnimation: {fileID: 4187202357024387585}
   iconRenderers:
@@ -392,6 +392,7 @@ MonoBehaviour:
   - {fileID: 757497180041647949}
   - {fileID: 5506244435691840460}
   - {fileID: 6242891659850046639}
+  _particleHandler: {fileID: 1498926740059688079}
 --- !u!114 &1498926740059688079
 MonoBehaviour:
   m_ObjectHideFlags: 0

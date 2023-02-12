@@ -21,7 +21,7 @@ public class GraphicController : ControllerBase
     
     private GridGraphic _gridGraphic;
     private List<CellGraphic> _cells = new ();
-    private List<BlockGraphic> _blocks = new ();
+    private List<ElementGraphic> _elements = new ();
 
     private List<Func<float>> _graphicActions = new ();
  
@@ -29,18 +29,18 @@ public class GraphicController : ControllerBase
     {
         base.Initialize();
         EventManager.OnBlockGroupDestroy.AddListener(OnBlockGroupDestroyed);
-        EventManager.OnBlocksFall.AddListener(OnBlocksFall);
-        EventManager.OnBlocksInstantiate.AddListener(OnBlocksInstantiated);
-        EventManager.OnBlocksIconChange.AddListener(OnBlocksIconChange);
+        EventManager.OnElementsFall.AddListener(OnBlocksFall);
+        EventManager.OnElementsInstantiate.AddListener(OnBlocksInstantiated);
+        EventManager.OnElementsIconChange.AddListener(OnBlocksIconChange);
         EventManager.OnShuffleGrid.AddListener(OnShuffleGrid);
     }
 
     private void OnDestroy()
     {
         EventManager.OnBlockGroupDestroy.RemoveAllListeners();
-        EventManager.OnBlocksFall.RemoveAllListeners();
-        EventManager.OnBlocksInstantiate.RemoveAllListeners();
-        EventManager.OnBlocksIconChange.RemoveAllListeners();
+        EventManager.OnElementsFall.RemoveAllListeners();
+        EventManager.OnElementsInstantiate.RemoveAllListeners();
+        EventManager.OnElementsIconChange.RemoveAllListeners();
         EventManager.OnShuffleGrid.RemoveAllListeners();
     }
     
@@ -48,7 +48,7 @@ public class GraphicController : ControllerBase
     {
         _gridGraphic = null;
         _cells.Clear();
-        _blocks.Clear();
+        _elements.Clear();
         
         _gridGraphic = Instantiate(_graphicData.gridPrefab);
         _gridGraphic.InitializeGraphic(new Vector3Int(grid.Width, grid.Height, 1),
@@ -65,10 +65,10 @@ public class GraphicController : ControllerBase
                 //TODO: config
                 if (grid.TryGetElementAs<Block>(x, y, out var element))
                 {
-                    var blockGraphic = element._blockGraphic;
+                    var blockGraphic = element.blockGraphic;
                     Sprite[] icons = blockColors.list[(int)element.Color].Icons;
                     blockGraphic.InitializeGraphic(element, icons,element.GetIconIndex());
-                    _blocks.Add(blockGraphic);
+                    _elements.Add(blockGraphic);
                 }
             }
         }
@@ -101,12 +101,12 @@ public class GraphicController : ControllerBase
 
     private float ShuffleAction()
     {
-        foreach (BlockGraphic blockGraphic in _blocks)
+        foreach (BlockGraphic blockGraphic in _elements)
         {
             blockGraphic.GoShufflePosition(GridInitializer.LevelModel.M + 5,1f);
         }
         
-        _blocks.Clear();
+        _elements.Clear();
 
         return ActionSettings.shuffleDuration;
     }
@@ -116,7 +116,7 @@ public class GraphicController : ControllerBase
         foreach (Block destroyedBlock in destroyedGroup.list)
         {
             //Debug.Log($"Graphic {destroyedBlock.Position} destroyed");
-            destroyedBlock._blockGraphic.OnBlockGroupDestroy(destroyedGroup, clickedCell);
+            destroyedBlock.blockGraphic.OnBlockGroupDestroy(destroyedGroup, clickedCell);
         }
 
         var duration = destroyedGroup.ComboIndex switch
@@ -137,12 +137,12 @@ public class GraphicController : ControllerBase
         return duration;
     }
 
-    private float FallAction(List<Block> movedBlocks)
+    private float FallAction(List<Element> movedElements)
     {
-        foreach (Block block in movedBlocks)
+        foreach (Element element in movedElements)
         {
             //print(_blockLink[block]);
-            block._blockGraphic.OnBlockFall(ActionSettings.blockFallDuration);
+            element.ElementGraphic.OnElementFall(ActionSettings.blockFallDuration);
         }
 
         //DOVirtual.DelayedCall(.2f, () => AudioManager.Instance.PlaySFX(5));
@@ -150,29 +150,25 @@ public class GraphicController : ControllerBase
         return ActionSettings.fallDuration;
     }
 
-    private float InstantiateAction(List<Block> instantiatedBlocks)
+    private float InstantiateAction(List<Element> instantiatedElements)
     {
         //Debug.LogWarning("Count:" + instantiatedBlocks.Count);
-        foreach (Block instantiatedBlock in instantiatedBlocks)
+        foreach (Element element in instantiatedElements)
         {
-            var blockGraphic = instantiatedBlock._blockGraphic;//_blockPool.GetItem(blockParent);//Instantiate(_graphicData.blockPrefab, blockParent);
-            //blockGraphic.InitializeGraphic(instantiatedBlock, blockColors.list[(int)instantiatedBlock.Color].Icons,
-              //  instantiatedBlock.GetIconIndex(),
-                //instantiatedBlock.Position + Vector3Int.up * GridInitializer.LevelModel.N); // create position is (actual pos + grid height)
-
-            //Debug.LogWarning($"BlockGraphic Created for Block At:{instantiatedBlock.Position}");
-            _blocks.Add(blockGraphic);
-            blockGraphic.GoBlockPosition(ActionSettings.instantiatedBlockFallDuration);
+            var elementGraphic = element.ElementGraphic;
+            
+            _elements.Add(elementGraphic);
+            elementGraphic.OnElementFall(ActionSettings.instantiatedBlockFallDuration);
         }
 
         return ActionSettings.instantiateDuration;
     }
 
-    private float IconChangeAction(List<Block> iconChangedBlocks)
+    private float IconChangeAction(List<Element> iconChangedElements)
     {
-        foreach (Block iconChangedBlock in iconChangedBlocks)
+        foreach (Element iconChangedElement in iconChangedElements)
         {
-            iconChangedBlock._blockGraphic.ChangeIconAtIndex(iconChangedBlock.GetIconIndex());
+            iconChangedElement.ElementGraphic.ChangeIconAtIndex(iconChangedElement.GetIconIndex());
         }
 
         return ActionSettings.iconChangeDuration;
@@ -193,18 +189,18 @@ public class GraphicController : ControllerBase
         _graphicActions.Add(() => DestroyAction(destroyedGroup, clickedCell));
     }
 
-    private void OnBlocksFall(List<Block> movedBlocks)
+    private void OnBlocksFall(List<Element> movedBlocks)
     {
         _graphicActions.Add(() => FallAction(movedBlocks));
 
     }
 
-    private void OnBlocksInstantiated(List<Block> instantiatedBlocks)
+    private void OnBlocksInstantiated(List<Element> instantiatedBlocks)
     {
         _graphicActions.Add(() => InstantiateAction(instantiatedBlocks));
     }
 
-    private void OnBlocksIconChange(List<Block> iconChangedBlocks)
+    private void OnBlocksIconChange(List<Element> iconChangedBlocks)
     {
         _graphicActions.Add(() => IconChangeAction(iconChangedBlocks));
     }
@@ -227,7 +223,7 @@ public class GraphicController : ControllerBase
         {
 #if UNITY_EDITOR
             DestroyImmediate(_cells[i].gameObject);
-            DestroyImmediate(_blocks[i].gameObject);
+            DestroyImmediate(_elements[i].gameObject);
 #else
             Destroy(_cells[i].gameObject);
             Destroy(_blocks[i].gameObject);
@@ -236,6 +232,6 @@ public class GraphicController : ControllerBase
         StopAllCoroutines();
         _graphicActions.Clear();
         _cells.Clear();
-        _blocks.Clear();
+        _elements.Clear();
     }
 }

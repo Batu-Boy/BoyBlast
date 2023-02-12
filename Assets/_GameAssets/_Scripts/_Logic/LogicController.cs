@@ -88,7 +88,7 @@ public class LogicController : ControllerBase
         EventManager.OnShuffleGrid?.Invoke();
         while (true)
         {
-            List<Block> instantiatedBlocks = new List<Block>();
+            List<Element> instantiatedBlocks = new List<Element>();
             for (int x = 0; x < _grid.Width; x++)
             {
                 for (int y = 0; y < _grid.Height; y++)
@@ -105,7 +105,7 @@ public class LogicController : ControllerBase
             }
 
             if (!HasAnyValidMove()) continue;
-            EventManager.OnBlocksInstantiate?.Invoke(instantiatedBlocks);
+            EventManager.OnElementsInstantiate?.Invoke(instantiatedBlocks);
             SetGroupIcons();
             return;
         }
@@ -140,7 +140,7 @@ public class LogicController : ControllerBase
     
     private void FallExistingBlocks()
     {
-        List<Block> fallenBlocks = new List<Block>();
+        List<Element> fallenBlocks = new List<Element>();
         //TODO: MAYBE CHECK COLUMNS FIRST
         for (int x = 0; x < _grid.Width; x++)
         {
@@ -176,13 +176,13 @@ public class LogicController : ControllerBase
 
         if (fallenBlocks.Count > 0)
         {
-            EventManager.OnBlocksFall?.Invoke(fallenBlocks);
+            EventManager.OnElementsFall?.Invoke(fallenBlocks);
         }
     }
 
     private void FillEmptyCells()
     {
-        List<Block> instantiatedBlocks = new List<Block>();
+        List<Element> instantiatedBlocks = new List<Element>();
         for (int x = 0; x < _grid.Width; x++)
         {
             for (int y = _grid.Height - 1; y >= 0; y--)
@@ -206,7 +206,7 @@ public class LogicController : ControllerBase
 
         if (instantiatedBlocks.Count > 0)
         {
-            EventManager.OnBlocksInstantiate?.Invoke(instantiatedBlocks);
+            EventManager.OnElementsInstantiate?.Invoke(instantiatedBlocks);
         }
     }
     
@@ -318,7 +318,7 @@ public class LogicController : ControllerBase
     
     private void SetGroupIcons()
     {
-        List<Block> iconChangedBlocks = new List<Block>();
+        List<Element> iconChangedBlocks = new List<Element>();
         foreach (BlockGroup blockGroup in _blockGroups)
         {
             foreach (Block block in blockGroup.list)
@@ -330,13 +330,13 @@ public class LogicController : ControllerBase
 
         if (iconChangedBlocks.Count > 0)
         {
-            EventManager.OnBlocksIconChange?.Invoke(iconChangedBlocks);
+            EventManager.OnElementsIconChange?.Invoke(iconChangedBlocks);
         }
     }
 
     private void SetSingleIcons()
     {
-        List<Block> singleBlocks = new List<Block>();
+        List<Element> singleBlocks = new List<Element>();
         for (int x = 0; x < _grid.Width; x++)
         {
             for (int y = 0; y < _grid.Height; y++)
@@ -352,7 +352,7 @@ public class LogicController : ControllerBase
 
         if (singleBlocks.Count > 0)
         {
-            EventManager.OnBlocksIconChange?.Invoke(singleBlocks);
+            EventManager.OnElementsIconChange?.Invoke(singleBlocks);
         }
     }
     

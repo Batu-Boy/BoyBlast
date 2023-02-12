@@ -1,17 +1,16 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class Block : Element
-{
-    [SerializeField] public BlockGraphic _blockGraphic;
+{   
+    [SerializeField] public BlockGraphic blockGraphic;
     [SerializeField] private BlockColors blockColors;
-
+    
     [NonSerialized]
     private BlockGroup _group;
     public bool HasGroup => _group != null;
-    
-    private int _currentIconIndex;
     
     private BlockColor _blockColor;
     public BlockColor Color => _blockColor;
@@ -19,12 +18,12 @@ public class Block : Element
     public void Initialize(BlockColor color, Cell currentCell)
     {
         base.Initialize(currentCell);
-        
+        ElementGraphic = blockGraphic;
         _blockColor = color;
         _currentIconIndex = 0;
         canFall = true;
         Sprite[] icons = blockColors.list[(int)Color].Icons;
-        _blockGraphic.InitializeGraphic(this, icons, _currentIconIndex);
+        blockGraphic.InitializeGraphic(this, icons, _currentIconIndex);
     }
     
     public void Initialize(BlockColor color, Cell currentCell,Vector3Int pos)
@@ -35,19 +34,9 @@ public class Block : Element
         _currentIconIndex = 0;
         canFall = true;
         Sprite[] icons = blockColors.list[(int)Color].Icons;
-        _blockGraphic.InitializeGraphic(this, icons, _currentIconIndex, pos);
+        blockGraphic.InitializeGraphic(this, icons, _currentIconIndex, pos);
     }
-
-    public int GetIconIndex() => _currentIconIndex;
-    public void SetIconIndex(int iconIndex)
-    {
-        _currentIconIndex = iconIndex;
-    }
-    public void SetDefaultIcon()
-    {
-        _currentIconIndex = 0;
-    }
-
+    
     public BlockGroup GetGroup() => _group;
     public void SetGroup(BlockGroup blockGroup)
     {
