@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf984eda3e60046719236c4930b2fd29, type: 3}
+  m_Name: BlockColors
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 11400000, guid: 11e565e64546b478395ef277d25c4593, type: 2}
+  - {fileID: 11400000, guid: 6fe2068dcc28049cb868d0804682f8e6, type: 2}
+  - {fileID: 11400000, guid: 71dca9e3ff3d54592b8955d948e0014a, type: 2}
+  - {fileID: 11400000, guid: 1ca5700b39fd147b29e189fb3e9419c3, type: 2}
+  - {fileID: 11400000, guid: 0d785ccad722446aa8dcd63b10dcb164, type: 2}
+  - {fileID: 11400000, guid: 5a3ab51e43c3b47baa85dbbebf538a0e, type: 2}
