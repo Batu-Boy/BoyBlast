@@ -34,6 +34,8 @@ public class GraphicController : ControllerBase
         EventManager.OnElementsInstantiate.AddListener(OnBlocksInstantiated);
         EventManager.OnElementsIconChange.AddListener(OnBlocksIconChange);
         EventManager.OnShuffleGrid.AddListener(OnShuffleGrid);
+        EventManager.OnBombCreated.AddListener(OnBombCreated);
+        EventManager.OnElementsExplode.AddListener(OnElementsExplode);
     }
 
     private void OnDestroy()
@@ -43,6 +45,8 @@ public class GraphicController : ControllerBase
         EventManager.OnElementsInstantiate.RemoveAllListeners();
         EventManager.OnElementsIconChange.RemoveAllListeners();
         EventManager.OnShuffleGrid.RemoveAllListeners();
+        EventManager.OnBombCreated.RemoveAllListeners();
+        EventManager.OnElementsExplode.RemoveAllListeners();
     }
     
     public void OnGridInitialized(Grid grid)
@@ -176,6 +180,25 @@ public class GraphicController : ControllerBase
         return ActionSettings.iconChangeDuration;
     }
 
+    private float BombCreateAction(Bomb bomb, Cell cell)
+    {
+        bomb.bombGraphic.Appear();
+            
+        return ActionSettings.bombCreateDuration;
+    }
+    
+    private float BombExplodeAction(List<Element> elements, Bomb bomb)
+    {
+        foreach (var element in elements)
+        {
+            element.ElementGraphic.Explode();
+        }
+        
+        bomb.bombGraphic.Explode();
+
+        return ActionSettings.bombExplodeDuration;
+    }
+
     #endregion
 
     //Connection to Logic
@@ -206,6 +229,17 @@ public class GraphicController : ControllerBase
     {
         _graphicActions.Add(() => IconChangeAction(iconChangedBlocks));
     }
+
+    private void OnBombCreated(Bomb bomb, Cell cell)
+    {
+        _graphicActions.Add(() => BombCreateAction(bomb, cell));
+    }
+    
+    private void OnElementsExplode(List<Element> elements, Bomb bomb)
+    {
+        _graphicActions.Add(()=> BombExplodeAction(elements,bomb));
+    }
+
     #endregion
 
     

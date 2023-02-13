@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class LogicController : ControllerBase
 {
-    [SerializeField] private Block blockPrefab;
-
     [Header("Debug")]
-    [SerializeField] private List<BlockGroup> _blockGroups = new ();
-
+    [SerializeReference] private List<BlockGroup> _blockGroups = new ();
+    
     private Grid _grid;
 
     public void OnGridInitialized(Grid grid)
@@ -45,36 +43,113 @@ public class LogicController : ControllerBase
         if (!_grid.TryGetCell(floorInput, out Cell cell)) return;
 
         Element element = cell.GetElement();
-        
         if(!element) return;
 
+        GameController.Instance.ChangeState(GameStates.LogicAction);
+        
         if (element is Block block)
         {
-            OnBlockClicked(block, cell);
+            if (!block.TryGetBlockGroup(out BlockGroup blockGroup)) return;
+            
+            EventManager.OnValidMove?.Invoke();
+            OnBlockClicked(blockGroup, cell);
         }
-    }
-
-    private void OnBlockClicked(Block clickedBlock, Cell cell)
-    {
-        if (!clickedBlock.TryGetBlockGroup(out BlockGroup blockGroup)) return;
-
-        //VALID ACTION MADE
-        GameController.Instance.ChangeState(GameStates.LogicAction);
-        EventManager.OnValidMove?.Invoke();
-        ValidMoveActions(blockGroup, cell);
+        else if (element is Bomb bomb)
+        {
+            EventManager.OnValidMove?.Invoke();
+            OnBombClicked(bomb, cell);
+        }
+        
+        ValidMoveActions();
+        GameController.Instance.ChangeState(GameStates.GraphicAction);
     }
     
-    private void ValidMoveActions(BlockGroup blockGroup, Cell cell)
+    private void ValidMoveActions()
     {
-        DestroyBlockGroup(blockGroup, cell);
-        FallExistingBlocks();
+        FallExistingElements();
         FillEmptyCells();
         DetectGroups();//
         SetGroupIcons();
         SetSingleIcons();
-        
-        GameController.Instance.ChangeState(GameStates.GraphicAction);
     }
+    
+    private void OnBombClicked(Bomb bomb, Cell cell)
+    {
+        DestroyBombRangeElements(bomb,cell);
+    }
+
+    private void OnBlockClicked(BlockGroup blockGroup, Cell cell)
+    {
+        DestroyBlockGroup(blockGroup, cell);
+        CheckCombo(blockGroup, cell);
+    }
+
+    #region BombExplodeLogic
+
+    private void DestroyBombRangeElements(Bomb bomb, Cell cell)
+    {
+        List<Bomb> innerBombList = new List<Bomb>();
+
+        innerBombList.Add(bomb);
+        RecurseBombs(bomb, ref innerBombList);
+        
+        Debug.Log(innerBombList.Count);
+    }
+
+    private void RecurseBombs(Bomb bomb, ref List<Bomb> innerBombList)
+    {
+        List<Element> destroyedElements = new List<Element>();
+
+        var xRange = bomb.Range.x;
+        var yRange = bomb.Range.y;
+
+        var xStartOffset = Mathf.CeilToInt(xRange / 2f);
+        var xFinishOffset = xRange - xStartOffset;
+
+        var yStartOffset = Mathf.CeilToInt(yRange / 2f);
+        var yFinishOffset = yRange - yStartOffset;
+
+        var position = bomb.Position;
+        
+        for (int x = position.x - xStartOffset + 1; x < position.x + xFinishOffset + 1; x++)
+        {
+            for (int y = position.y - yStartOffset + 1; y < position.y + yFinishOffset + 1; y++)
+            {
+                if (!_grid.TryGetCell(x, y, out var currentCell)) continue;
+
+                Element currentElement = currentCell.GetElement();
+                if(!currentElement) continue;
+                if(currentElement.Position == bomb.Position) continue;
+                
+                if (currentElement is Bomb currentBomb)
+                {
+                    innerBombList.Add(currentBomb);
+                }
+                else
+                {
+                    currentElement.Destroy(bomb.GetCell());
+                    destroyedElements.Add(currentElement);
+                }
+            }
+        }
+
+        if (bomb)
+        {
+            innerBombList.Remove(bomb);
+            bomb.Destroy(null);
+        }
+
+        
+        if (innerBombList.Count > 0)
+        {
+            RecurseBombs(innerBombList[0], ref innerBombList);
+        }
+        
+        if (destroyedElements.Count > 0)
+            EventManager.OnElementsExplode?.Invoke(destroyedElements, bomb);
+    }
+
+    #endregion
 
     #region ShuffleLogic
     //Recursion for shuffle correction
@@ -84,24 +159,26 @@ public class LogicController : ControllerBase
         EventManager.OnShuffleGrid?.Invoke();
         while (true)
         {
-            List<Element> instantiatedBlocks = new List<Element>();
+            List<Element> instantiatedElements = new List<Element>();
             for (int x = 0; x < _grid.Width; x++)
             {
                 for (int y = 0; y < _grid.Height; y++)
                 {
                     if (!_grid.TryGetCell(x, y, out Cell currentCell)) continue;
 
+                    if(!currentCell.TryGetElementAs<Block>(out var block)) continue;// shuffle only blocks
+                    
                     Block newBlock = BlockPool.Instance.GetItem();//Instantiate(blockPrefab);
                     newBlock.Initialize(GridInitializer.GetRandomColor(),currentCell,
                     currentCell.GetPosition() + GridInitializer.LevelModel.N * Vector3Int.up);
                     currentCell.SetElement(newBlock);
-                    instantiatedBlocks.Add(newBlock);
+                    instantiatedElements.Add(newBlock);
                     //Debug.Log($"Block Created:{newBlock.Position}");
                 }
             }
 
             if (!HasAnyValidMove()) continue;
-            EventManager.OnElementsInstantiate?.Invoke(instantiatedBlocks);
+            EventManager.OnElementsInstantiate?.Invoke(instantiatedElements);
             SetGroupIcons();
             return;
         }
@@ -127,14 +204,30 @@ public class LogicController : ControllerBase
         if (clickedBlockGroup.list.Count <= 0) return;
         
         EventManager.OnBlockGroupDestroy?.Invoke(clickedBlockGroup,clickedCell);
+
         _blockGroups.Remove(clickedBlockGroup);
     }
     
     #endregion
 
+    #region ComboLogic
+    
+    private void CheckCombo(BlockGroup clickedBlockGroup, Cell clickedCell)
+    {
+        if (clickedBlockGroup.ComboIndex <= 0) return;
+
+        var bomb = BombPool.Instance.GetItem();
+        bomb.Initialize(clickedBlockGroup.ComboIndex - 1, clickedCell);
+        clickedCell.SetElement(bomb);
+        
+        EventManager.OnBombCreated?.Invoke(bomb, clickedCell);
+    }
+
+    #endregion
+
     #region FillLogic
     
-    private void FallExistingBlocks()
+    private void FallExistingElements()
     {
         List<Element> fallenBlocks = new List<Element>();
         //TODO: MAYBE CHECK COLUMNS FIRST
@@ -166,7 +259,7 @@ public class LogicController : ControllerBase
                 upMostCell.ClearCell();
                 //Debug.LogWarning(upMostCell.GetPosition() + $"Falling to {currentCell.GetPosition()}");
                 //TODO: configure as block
-                fallenBlocks.Add(upMostElement as Block);
+                fallenBlocks.Add(upMostElement);
             }
         }
 

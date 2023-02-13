@@ -39,6 +39,13 @@ public class BlockGraphic : ElementGraphic
         Debug.Log("Destroy");
     }
 
+    public override void Explode()
+    {
+        base.Explode();
+        //TODO: config
+        StartCoroutine(DestroyDefaultCoroutine());
+    }
+
     private IEnumerator DestroyDefaultCoroutine()
     {
         _particleHandler.PlayDestroy();

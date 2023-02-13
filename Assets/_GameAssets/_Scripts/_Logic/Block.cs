@@ -29,7 +29,7 @@ public class Block : Element
     public void Initialize(BlockColor color, Cell currentCell,Vector3Int pos)
     {
         base.Initialize(currentCell);
-        
+        ElementGraphic = blockGraphic;
         _blockColor = color;
         _currentIconIndex = 0;
         canFall = true;

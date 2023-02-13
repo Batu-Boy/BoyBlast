@@ -25,8 +25,10 @@ public class RuleController : ControllerBase
     {
         base.Initialize();
         EventManager.OnBlockGroupDestroy.AddListener(OnBlockGroupDestroyed);
+        EventManager.OnElementsExplode.AddListener(OnElementsExplode);
         EventManager.OnValidMove.AddListener(OnValidMoveMade);
     }
+
 
     public void OnGridInit()
     {
@@ -37,6 +39,36 @@ public class RuleController : ControllerBase
             _ruleViewModel.AddGoalToLayout(goal);
         }
         _ruleViewModel.UpdateMoveText(_levelRule.MoveCount);
+    }
+    
+    private void OnElementsExplode(List<Element> elements, Bomb bomb)
+    {
+        foreach (var element in elements)
+        {
+            if (element is Block block)
+            {
+                OnBlockDestroyed(block);
+            }
+        }
+    }
+
+    private void OnBlockDestroyed(Block block)
+    {
+        for (var i = 0; i < _levelRule.GoalList.Count; i++)
+        {
+            var goal = _levelRule.GoalList[i];
+            if (goal.BlockColor == block.Color)
+            {
+                goal.DecreaseCount(1);
+                _ruleViewModel.UpdateGoal(goal);
+                
+                if (goal.Success)
+                {
+                    _levelRule.GoalList.Remove(goal);
+                    CheckLogicWin();
+                }
+            }
+        }
     }
     
     private void OnBlockGroupDestroyed(BlockGroup blockGroup, Cell cell)

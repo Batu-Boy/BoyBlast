@@ -114,6 +114,11 @@ public class ElementGraphic : MonoBehaviour
     }
     
     #endregion
+
+    public virtual void Explode()
+    {
+        
+    }
     
     private void UpdateName()
     {

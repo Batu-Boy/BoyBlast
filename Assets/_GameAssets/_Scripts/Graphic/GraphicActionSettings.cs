@@ -10,6 +10,8 @@ public class GraphicActionSettings
     [SerializeField] [Range(0,1)] public float instantiateDuration = .3f;
     [SerializeField] [Range(0,1)] public float iconChangeDuration;
     [SerializeField] [Range(0,1)] public float shuffleDuration = .5f;
+    [SerializeField] [Range(0,1)] public float bombCreateDuration = .5f;
+    [SerializeField] [Range(0,1)] public float bombExplodeDuration = .5f;
     [Space]
     [SerializeField] [Range(0,1)] public float destroyDefaultDuration;
     [SerializeField] [Range(0,1)] public float combo1Duration = .3f;

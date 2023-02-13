@@ -6,7 +6,7 @@ public abstract class Element : MonoBehaviour
 {
     [SerializeReference] public ElementGraphic ElementGraphic;
     
-    private Cell _currentCell;
+    [SerializeField] private Cell _currentCell;
     private Vector3Int _currentPosition;
     protected int _currentIconIndex;
     public bool canFall;
@@ -38,11 +38,13 @@ public abstract class Element : MonoBehaviour
 
     public virtual void Destroy(Cell clickedCell)
     {
+        if(_currentCell == null) return;
+        
         if (!_currentCell.IsEmpty)
         {
             _currentCell.ClearCell();
-            
         }
+        
         _currentCell = null;
     }
 }
