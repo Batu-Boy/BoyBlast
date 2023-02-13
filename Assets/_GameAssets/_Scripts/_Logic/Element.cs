@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Element : MonoBehaviour
 {
-    public ElementGraphic ElementGraphic;
+    [SerializeReference] public ElementGraphic ElementGraphic;
     
     private Cell _currentCell;
     private Vector3Int _currentPosition;
@@ -45,9 +45,4 @@ public abstract class Element : MonoBehaviour
         }
         _currentCell = null;
     }
-}
-
-public class TestElement : Element
-{
-
 }

@@ -32,7 +32,13 @@ public class BlockGraphic : ElementGraphic
                 break;
         }
     }
-    
+
+    public override void DestroyTest()
+    {
+        base.DestroyTest();
+        Debug.Log("Destroy");
+    }
+
     private IEnumerator DestroyDefaultCoroutine()
     {
         _particleHandler.PlayDestroy();

@@ -8,7 +8,7 @@ public class ElementGraphic : MonoBehaviour
     [SerializeField] private Animation fallAnimation;
     [SerializeField] private SpriteRenderer[] iconRenderers;
     
-    protected Element _element;
+    [HideInInspector] [SerializeReference] protected Element _element;
     private SpriteRenderer _currentIcon;
 
     public virtual void InitializeGraphic(Element element, Sprite[] icons, int iconIndex)
@@ -45,6 +45,11 @@ public class ElementGraphic : MonoBehaviour
         transform.DOMove(_element.Position, totalDuration).SetEase(Ease.InSine);
         DOVirtual.DelayedCall(fallDuration,() => fallAnimation.Play("BlockLand"));
         UpdateName();
+    }
+
+    public virtual void DestroyTest()
+    {
+        
     }
     
     #region IconFuncions

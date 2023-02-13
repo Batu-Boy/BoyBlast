@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,7 +23,7 @@ public class GraphicController : ControllerBase
     private GridGraphic _gridGraphic;
     private List<CellGraphic> _cells = new ();
     private List<ElementGraphic> _elements = new ();
-
+    
     private List<Func<float>> _graphicActions = new ();
  
     public override void Initialize()
@@ -101,7 +102,7 @@ public class GraphicController : ControllerBase
 
     private float ShuffleAction()
     {
-        foreach (BlockGraphic blockGraphic in _elements)
+        foreach (var blockGraphic in _elements.OfType<BlockGraphic>())
         {
             blockGraphic.GoShufflePosition(GridInitializer.LevelModel.M + 5,1f);
         }
@@ -117,8 +118,9 @@ public class GraphicController : ControllerBase
         {
             //Debug.Log($"Graphic {destroyedBlock.Position} destroyed");
             destroyedBlock.blockGraphic.OnBlockGroupDestroy(destroyedGroup, clickedCell);
+            _elements.Remove(destroyedBlock.blockGraphic);
         }
-
+        
         var duration = destroyedGroup.ComboIndex switch
         {
             0 => ActionSettings.destroyDefaultDuration,

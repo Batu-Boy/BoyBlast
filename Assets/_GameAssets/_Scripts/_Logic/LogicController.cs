@@ -52,10 +52,6 @@ public class LogicController : ControllerBase
         {
             OnBlockClicked(block, cell);
         }
-        else if (element is TestElement testElement)
-        {
-            Debug.Log($"test element{testElement.Position}");
-        }
     }
 
     private void OnBlockClicked(Block clickedBlock, Cell cell)

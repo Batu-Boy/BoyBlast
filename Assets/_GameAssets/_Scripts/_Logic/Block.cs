@@ -11,7 +11,7 @@ public class Block : Element
     [NonSerialized]
     private BlockGroup _group;
     public bool HasGroup => _group != null;
-    
+
     private BlockColor _blockColor;
     public BlockColor Color => _blockColor;
     
