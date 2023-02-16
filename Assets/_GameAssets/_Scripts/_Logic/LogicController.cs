@@ -88,9 +88,8 @@ public class LogicController : ControllerBase
 
     private void DestroyBombRangeElements(Bomb bomb, Cell cell)
     {
-        List<Bomb> innerBombList = new List<Bomb>();
+        List<Bomb> innerBombList = new List<Bomb> { bomb };
 
-        innerBombList.Add(bomb);
         RecurseBombs(bomb, ref innerBombList);
         
         Debug.Log(innerBombList.Count);
@@ -98,6 +97,7 @@ public class LogicController : ControllerBase
 
     private void RecurseBombs(Bomb bomb, ref List<Bomb> innerBombList)
     {
+        Debug.Log($"Calculating:{bomb.name}");
         List<Element> destroyedElements = new List<Element>();
 
         var xRange = bomb.Range.x;
@@ -123,30 +123,35 @@ public class LogicController : ControllerBase
                 
                 if (currentElement is Bomb currentBomb)
                 {
-                    innerBombList.Add(currentBomb);
+                    if (!innerBombList.Contains(currentBomb))
+                    {
+                        Debug.Log($"Added:{currentBomb.name}");
+                        innerBombList.Add(currentBomb);
+                    }
                 }
                 else
                 {
                     currentElement.Destroy(bomb.GetCell());
                     destroyedElements.Add(currentElement);
+                    Debug.Log($"Element Exploded:{currentElement.name}");
                 }
             }
         }
 
         if (bomb)
         {
+            Debug.Log($"Exploded:{bomb.name}");
             innerBombList.Remove(bomb);
             bomb.Destroy(null);
         }
-
+        
+        EventManager.OnElementsExplode?.Invoke(destroyedElements, bomb);
         
         if (innerBombList.Count > 0)
         {
             RecurseBombs(innerBombList[0], ref innerBombList);
         }
         
-        if (destroyedElements.Count > 0)
-            EventManager.OnElementsExplode?.Invoke(destroyedElements, bomb);
     }
 
     #endregion

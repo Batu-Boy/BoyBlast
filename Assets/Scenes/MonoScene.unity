@@ -953,7 +953,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 200, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1467,10 +1467,16 @@ MonoBehaviour:
   canWin: 1
   _ruleViewModel: {fileID: 8131442772862616987}
   _levelRule:
-    MoveCount: 99
+    MoveCount: 50
     GoalList:
-    - BlockColor: 4
-      Count: 100
+    - BlockColor: 2
+      Count: 30
+      Success: 0
+    - BlockColor: 1
+      Count: 30
+      Success: 0
+    - BlockColor: 3
+      Count: 30
       Success: 0
 --- !u!1001 &884902657
 PrefabInstance:
@@ -2070,7 +2076,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2102,7 +2108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1204211552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: -20}
+  m_LocalPosition: {x: 3.5, y: 4, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3241,10 +3247,135 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8187956fa17a43f9866e7a0572c0859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blockGroups: []
+  _blockGroups:
+  - rid: 3154426670320713728
+  - rid: 3154426670320713729
+  - rid: 3154426670320713730
+  - rid: 3154426670320713731
+  - rid: 3154426670320713732
+  - rid: 3154426670320713733
+  - rid: 3154426670320713734
+  - rid: 3154426670320713735
+  - rid: 3154426670320713736
+  - rid: 3154426670320713737
+  - rid: 3154426670320713738
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3154426670320713728
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713729
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
+        ComboIndex: 3
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713730
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713731
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 3
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713732
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713733
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
+        ComboIndex: 1
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713734
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 3
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713735
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 3
+        ComboIndex: 1
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713736
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 1
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713737
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 3
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426670320713738
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
 --- !u!1001 &1486383926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3728,8 +3859,8 @@ MonoBehaviour:
         m_CallState: 1
   blockPrefab: {fileID: 1733941023341456475, guid: 03751e41c13de4de2acf2908ce7135da, type: 3}
   gizmos: 0
-  Rows: 10
-  Columns: 10
+  Rows: 7
+  Columns: 8
 --- !u!1 &1596615478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3776,7 +3907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initializeOnAwake: 0
-  forceLevelIndex: -1
+  forceLevelIndex: 2
   jsonLevels: {fileID: 4900000, guid: b128bfe57240549ef9427d3c52b00993, type: 3}
   _gridInitializer: {fileID: 1584419566}
   onLevelLoaded:
