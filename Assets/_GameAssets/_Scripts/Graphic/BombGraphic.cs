@@ -25,8 +25,9 @@ public class BombGraphic : ElementGraphic
             .Append(transform.DOScale(1, .1f).SetEase(Ease.OutBack));
     }
 
-    public void Explode()
+    public override void Explode()
     {
+        base.Explode();
         DOTween.Sequence().SetId(this)
             .Append(transform.DOScale(2, .2f))
             .Append(transform.DOScale(0, .2f).SetEase(Ease.InBack));

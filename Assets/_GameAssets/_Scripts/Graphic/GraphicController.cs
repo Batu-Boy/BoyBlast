@@ -187,14 +187,17 @@ public class GraphicController : ControllerBase
         return ActionSettings.bombCreateDuration;
     }
     
-    private float BombExplodeAction(List<Element> elements, Bomb bomb)
+    private float BombExplodeAction(List<Element> elements, List<Bomb> bombs)
     {
         foreach (var element in elements)
         {
             element.ElementGraphic.Explode();
         }
         
-        bomb.bombGraphic.Explode();
+        foreach (var bomb in bombs)
+        {
+            bomb.bombGraphic.Explode();
+        }
 
         return ActionSettings.bombExplodeDuration;
     }
@@ -235,9 +238,9 @@ public class GraphicController : ControllerBase
         _graphicActions.Add(() => BombCreateAction(bomb, cell));
     }
     
-    private void OnElementsExplode(List<Element> elements, Bomb bomb)
+    private void OnElementsExplode(List<Element> elements, List<Bomb> bombs)
     {
-        _graphicActions.Add(()=> BombExplodeAction(elements,bomb));
+        _graphicActions.Add(()=> BombExplodeAction(elements,bombs));
     }
 
     #endregion

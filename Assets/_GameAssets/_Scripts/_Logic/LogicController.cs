@@ -88,17 +88,35 @@ public class LogicController : ControllerBase
 
     private void DestroyBombRangeElements(Bomb bomb, Cell cell)
     {
-        List<Bomb> innerBombList = new List<Bomb> { bomb };
+        var bombs = new List<Bomb> { bomb };
 
-        RecurseBombs(bomb, ref innerBombList);
-        
-        Debug.Log(innerBombList.Count);
+        RecurseBombs(bombs);
     }
 
-    private void RecurseBombs(Bomb bomb, ref List<Bomb> innerBombList)
+    private void RecurseBombs(List<Bomb> bombs)
+    {
+        List<Element> destroyedElements = new List<Element>();
+        List<Bomb> innerBombList = new List<Bomb>();
+
+        foreach (var bomb in bombs)
+        {
+            DestroyedElements(bomb, ref destroyedElements, ref innerBombList);
+            Debug.Log($"Exploded:{bomb.name}");
+            bomb.Destroy(null);
+        }
+        
+        if (bombs.Count > 0)
+         EventManager.OnElementsExplode?.Invoke(destroyedElements, bombs);
+
+        if (innerBombList.Count > 0)
+        {
+            RecurseBombs(innerBombList);
+        }
+    }
+    
+    private void DestroyedElements(Bomb bomb, ref List<Element> destroyedElements,ref List<Bomb> newBombs)
     {
         Debug.Log($"Calculating:{bomb.name}");
-        List<Element> destroyedElements = new List<Element>();
 
         var xRange = bomb.Range.x;
         var yRange = bomb.Range.y;
@@ -110,7 +128,7 @@ public class LogicController : ControllerBase
         var yFinishOffset = yRange - yStartOffset;
 
         var position = bomb.Position;
-        
+
         for (int x = position.x - xStartOffset + 1; x < position.x + xFinishOffset + 1; x++)
         {
             for (int y = position.y - yStartOffset + 1; y < position.y + yFinishOffset + 1; y++)
@@ -118,15 +136,15 @@ public class LogicController : ControllerBase
                 if (!_grid.TryGetCell(x, y, out var currentCell)) continue;
 
                 Element currentElement = currentCell.GetElement();
-                if(!currentElement) continue;
-                if(currentElement.Position == bomb.Position) continue;
-                
+                if (!currentElement) continue;
+                if (currentElement.Position == bomb.Position) continue;
+
                 if (currentElement is Bomb currentBomb)
                 {
-                    if (!innerBombList.Contains(currentBomb))
+                    if (!newBombs.Contains(currentBomb))
                     {
                         Debug.Log($"Added:{currentBomb.name}");
-                        innerBombList.Add(currentBomb);
+                        newBombs.Add(currentBomb);
                     }
                 }
                 else
@@ -137,21 +155,6 @@ public class LogicController : ControllerBase
                 }
             }
         }
-
-        if (bomb)
-        {
-            Debug.Log($"Exploded:{bomb.name}");
-            innerBombList.Remove(bomb);
-            bomb.Destroy(null);
-        }
-        
-        EventManager.OnElementsExplode?.Invoke(destroyedElements, bomb);
-        
-        if (innerBombList.Count > 0)
-        {
-            RecurseBombs(innerBombList[0], ref innerBombList);
-        }
-        
     }
 
     #endregion

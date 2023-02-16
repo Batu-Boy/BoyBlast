@@ -41,7 +41,7 @@ public class RuleController : ControllerBase
         _ruleViewModel.UpdateMoveText(_levelRule.MoveCount);
     }
     
-    private void OnElementsExplode(List<Element> elements, Bomb bomb)
+    private void OnElementsExplode(List<Element> elements, List<Bomb> bomb)
     {
         foreach (var element in elements)
         {
