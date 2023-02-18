@@ -45,17 +45,16 @@ public class LogicController : ControllerBase
         Element element = cell.GetElement();
         if(!element) return;
 
-        GameController.Instance.ChangeState(GameStates.LogicAction);
-        
         if (element is Block block)
         {
             if (!block.TryGetBlockGroup(out BlockGroup blockGroup)) return;
-            
+            GameController.Instance.ChangeState(GameStates.LogicAction);
             EventManager.OnValidMove?.Invoke();
             OnBlockClicked(blockGroup, cell);
         }
         else if (element is Bomb bomb)
         {
+            GameController.Instance.ChangeState(GameStates.LogicAction);
             EventManager.OnValidMove?.Invoke();
             OnBombClicked(bomb, cell);
         }
