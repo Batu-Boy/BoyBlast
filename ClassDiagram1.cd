@@ -255,7 +255,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EventManager" Collapsed="true">
-    <Position X="18.5" Y="5.5" Width="1.5" />
+    <Position X="31.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAACAAAAEAkAAAAAAAQAAgABAAgAACA=</HashCode>
       <FileName>Assets\_GameAssets\_Scripts\Managers\EventManager.cs</FileName>
