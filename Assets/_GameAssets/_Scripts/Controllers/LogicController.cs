@@ -88,20 +88,31 @@ public partial class LogicController : ControllerBase
 
     private void DestroyBlockGroup(BlockGroup clickedBlockGroup, Cell clickedCell)
     {
+        if (clickedBlockGroup.list.Count <= 0) return;
+        List<IDamageable> damagedElements = new List<IDamageable>();
         foreach (Block block in clickedBlockGroup.list)
         {
             block.Destroy(clickedCell);
+            DamageNeighbors(block.GetCell(),ref damagedElements);
         }
-
-        if (clickedBlockGroup.list.Count <= 0) return;
-
+        
+        EventManager.OnElementsDamaged?.Invoke(damagedElements);
         EventManager.OnBlockGroupDestroy?.Invoke(clickedBlockGroup, clickedCell);
 
         _blockGroups.Remove(clickedBlockGroup);
     }
-    
     #endregion
-
+    
+    #region DamageNeigborLogic
+    
+    //TODO: implement
+    private void DamageNeighbors(Cell currentCell, ref List<IDamageable> damagedElements)
+    {
+        Debug.Log("Implement Neighbor Damages");
+    }
+    
+    #endregion 
+    
     #region ComboLogic
     
     private void CheckCombo(BlockGroup clickedBlockGroup, Cell clickedCell)

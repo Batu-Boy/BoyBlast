@@ -108,6 +108,7 @@ public class ElementGraphic : MonoBehaviour
 
     public virtual void Explode()
     {
+        
     }
 
     private void UpdateName()
