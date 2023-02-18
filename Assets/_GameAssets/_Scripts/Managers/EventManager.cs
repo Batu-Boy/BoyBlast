@@ -11,4 +11,16 @@ public static class EventManager
     public static UnityEvent<List<Element>,List<Bomb>> OnElementsExplode = new();
     public static UnityEvent OnShuffleGrid = new ();
     public static UnityEvent OnValidMove = new ();
+
+    public static void ClearAllListeners()
+    {
+        OnBombCreated.RemoveAllListeners();
+        OnBlockGroupDestroy.RemoveAllListeners();
+        OnElementsFall.RemoveAllListeners();
+        OnElementsInstantiate.RemoveAllListeners();
+        OnElementsIconChange.RemoveAllListeners();
+        OnElementsExplode.RemoveAllListeners();
+        OnShuffleGrid.RemoveAllListeners();
+        OnValidMove.RemoveAllListeners();
+    }
 }

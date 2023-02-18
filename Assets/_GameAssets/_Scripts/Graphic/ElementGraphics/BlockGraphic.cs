@@ -33,12 +33,6 @@ public class BlockGraphic : ElementGraphic
         }
     }
 
-    public override void DestroyTest()
-    {
-        base.DestroyTest();
-        Debug.Log("Destroy");
-    }
-
     public override void Explode()
     {
         base.Explode();
