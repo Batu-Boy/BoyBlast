@@ -3221,24 +3221,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockGroups:
-  - rid: 3154426705493360752
-  - rid: 3154426705493360753
-  - rid: 3154426705493360754
-  - rid: 3154426705493360755
-  - rid: 3154426705493360756
-  - rid: 3154426705493360757
-  - rid: 3154426705493360758
-  - rid: 3154426705493360759
-  - rid: 3154426705493360760
-  - rid: 3154426705493360761
-  - rid: 3154426705493360762
-  - rid: 3154426705493360763
-  - rid: 3154426705493360764
-  - rid: 3154426705493360765
+  - rid: 3154426719014486333
+  - rid: 3154426719014486334
+  - rid: 3154426719014486335
+  - rid: 3154426719014486336
+  - rid: 3154426719014486337
+  - rid: 3154426719014486338
+  - rid: 3154426719014486339
+  - rid: 3154426719014486340
+  - rid: 3154426719014486341
+  - rid: 3154426719014486342
+  - rid: 3154426719014486343
+  - rid: 3154426719014486344
+  - rid: 3154426719014486345
   references:
     version: 2
     RefIds:
-    - rid: 3154426705493360752
+    - rid: 3154426719014486333
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 3
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486334
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486335
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 3
@@ -3249,7 +3267,8 @@ MonoBehaviour:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426705493360753
+        - {fileID: 0}
+    - rid: 3154426719014486336
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 2
@@ -3257,7 +3276,51 @@ MonoBehaviour:
         list:
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426705493360754
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486337
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486338
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486339
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 1
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486340
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486341
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 3
@@ -3265,48 +3328,25 @@ MonoBehaviour:
         list:
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426705493360755
+        - {fileID: 0}
+    - rid: 3154426719014486342
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
-        Color: 1
+        Color: 2
         ComboIndex: 0
         list:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426705493360756
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 2
-        ComboIndex: 1
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360757
+    - rid: 3154426719014486343
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 3
-        ComboIndex: 1
+        ComboIndex: 0
         list:
         - {fileID: 0}
         - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360758
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 1
-        ComboIndex: 1
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360759
+    - rid: 3154426719014486344
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 1
@@ -3314,59 +3354,11 @@ MonoBehaviour:
         list:
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426705493360760
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 1
-        ComboIndex: 2
-        list:
         - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360761
+    - rid: 3154426719014486345
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 2
-        ComboIndex: 0
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360762
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 2
-        ComboIndex: 1
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360763
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 2
-        ComboIndex: 0
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360764
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 2
-        ComboIndex: 0
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426705493360765
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 1
         ComboIndex: 0
         list:
         - {fileID: 0}
@@ -3950,9 +3942,9 @@ MonoBehaviour:
       M: 7
       N: 8
       K: 3
-      A: 3
-      B: 5
-      C: 7
+      A: 5
+      B: 7
+      C: 9
       LevelRule:
         MoveCount: 999
         GoalList:

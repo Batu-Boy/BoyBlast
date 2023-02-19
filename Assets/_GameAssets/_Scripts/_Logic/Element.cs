@@ -1,12 +1,15 @@
+using System;
 using UnityEngine;
 
 public abstract class Element : MonoBehaviour
 {
     [SerializeReference] public ElementGraphic ElementGraphic;
 
-    public bool canFall;
+    public bool CanFall { get; protected set; }
+    public bool Clickable { get; protected set; }
+
+    private Cell _currentCell;
     protected int _currentIconIndex;
-    [SerializeField] private Cell _currentCell;
 
     protected void Initialize(Cell currentCell)
     {

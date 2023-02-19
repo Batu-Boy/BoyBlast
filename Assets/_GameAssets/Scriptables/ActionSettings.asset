@@ -15,11 +15,11 @@ MonoBehaviour:
   blockDestroyGraphicAction:
     name: BlockDestroyGraphicAction
     <Delay>k__BackingField: 0
-    <Duration>k__BackingField: 0.15
+    <Duration>k__BackingField: 0.25
     <DefaultDuration>k__BackingField: 0
-    <Combo1Duration>k__BackingField: 0.15
-    <Combo2Duration>k__BackingField: 0.15
-    <Combo3Duration>k__BackingField: 0.15
+    <Combo1Duration>k__BackingField: 0.25
+    <Combo2Duration>k__BackingField: 0.25
+    <Combo3Duration>k__BackingField: 0.25
   bombCreateGraphicAction:
     name: BombCreateGraphicAction
     <Delay>k__BackingField: 0
@@ -27,11 +27,11 @@ MonoBehaviour:
   bombExplodeGraphicAction:
     name: BombExplodeGraphicAction
     <Delay>k__BackingField: 0
-    <Duration>k__BackingField: 0.1
+    <Duration>k__BackingField: 0.15
   fallGraphicAction:
     name: FallGraphicAction
     <Delay>k__BackingField: 0
-    <Duration>k__BackingField: 0.2
+    <Duration>k__BackingField: 0.25
   iconChangeGraphicAction:
     name: IconChangeGraphicAction
     <Delay>k__BackingField: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
   instantiateGraphicAction:
     name: InstantiateGraphicAction
     <Delay>k__BackingField: 0
-    <Duration>k__BackingField: 0.2
+    <Duration>k__BackingField: 0.3
   shuffleGraphicAction:
     name: ShuffleGraphicAction
     <Delay>k__BackingField: 0

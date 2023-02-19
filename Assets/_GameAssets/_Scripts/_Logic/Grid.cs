@@ -7,6 +7,8 @@ using Debug = UnityEngine.Debug;
 
 public class Grid
 {
+    public static Grid Instance;
+    
     public int Width { get; }
     public int Height { get; }
     
@@ -17,6 +19,8 @@ public class Grid
     
     public Grid(int width, int height)
     {
+        Instance = this;
+
         Width = width;
         Height = height;
         
@@ -159,7 +163,7 @@ public class Grid
     {
         if (x >= Width || y >= Height || x < 0 || y < 0)
         {
-            Debug.Log($"The {x},{y} is not on Grid");
+            //Debug.Log($"The {x},{y} is not on Grid");
             outCell = null;
             return false;
         }

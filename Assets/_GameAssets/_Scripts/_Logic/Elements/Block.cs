@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Block : Element
+public class Block : Element, IClickable
 {
     [SerializeField] public BlockGraphic blockGraphic;
 
     [SerializeField]
     private BlockColors blockColors; //TODO: take it to the inited script and give parameter in initialize methods
 
-    [NonSerialized] private BlockGroup _group;
+    public bool Clickable { get; set; }
+    public BlockColor Color { get; private set; }
     public bool HasGroup => _group != null;
 
-    public BlockColor Color { get; private set; }
+    [NonSerialized] private BlockGroup _group;
 
     public void Initialize(BlockColor color, Cell currentCell)
     {
         base.Initialize(currentCell);
         ElementGraphic = blockGraphic;
-        Color = color;
+        CanFall = true;
+        Clickable = false;
         _currentIconIndex = 0;
-        canFall = true;
+        Color = color;
         var icons = blockColors.list[(int)Color].Icons;
         blockGraphic.InitializeGraphic(this, icons, _currentIconIndex);
     }
@@ -30,9 +32,10 @@ public class Block : Element
     {
         base.Initialize(currentCell);
         ElementGraphic = blockGraphic;
-        Color = color;
+        CanFall = true;
+        Clickable = false;
         _currentIconIndex = 0;
-        canFall = true;
+        Color = color;
         var icons = blockColors.list[(int)Color].Icons;
         blockGraphic.InitializeGraphic(this, icons, _currentIconIndex, pos);
     }
@@ -45,18 +48,30 @@ public class Block : Element
     public void SetGroup(BlockGroup blockGroup)
     {
         _group = blockGroup;
+        Clickable = true;
+    }
+
+    public void ClearGroup()
+    {
+        _group = null;
+        Clickable = false;
     }
 
     public override void Destroy(Cell clickedCell)
     {
         base.Destroy(clickedCell);
-        SetGroup(null);
+        ClearGroup();
     }
 
     public bool TryGetBlockGroup(out BlockGroup outBlockGroup)
     {
         outBlockGroup = GetGroup();
         return GetGroup() != null;
+    }
+
+    public void ClickAction()
+    {
+        Debug.Log("Block Click Action");
     }
 }
 
@@ -85,7 +100,7 @@ public class BlockGroup
         if (list.Contains(block))
         {
             list.Remove(block);
-            block.SetGroup(null);
+            block.ClearGroup();
         }
         UpdateCombo();
     }

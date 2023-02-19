@@ -15,7 +15,7 @@ public partial class LogicController
 
             if (!currentCell.IsEmpty)
             {
-                if (!currentCell.GetElement().canFall) break;
+                if (!currentCell.GetElement().CanFall) break;
 
                 continue;
             }

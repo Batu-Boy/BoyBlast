@@ -65,9 +65,9 @@
             "M": 7,
             "N": 8,
             "K": 3,
-            "A": 3,
-            "B": 5,
-            "C": 7,
+            "A": 5,
+            "B": 7,
+            "C": 9,
             "LevelRule": {
                 "MoveCount": 999,
                 "GoalList": [

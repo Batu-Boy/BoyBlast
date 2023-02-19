@@ -72,7 +72,7 @@ public partial class LogicController
             //TODO: configure
             if (!_grid.TryGetElementAs<Block>(x, y, out var block)) continue;
 
-            block.SetGroup(null);
+            block.ClearGroup();
         }
 
         _blockGroups.Clear();

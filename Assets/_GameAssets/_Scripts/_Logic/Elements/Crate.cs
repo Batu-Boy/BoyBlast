@@ -13,7 +13,8 @@ public class Crate : Element, IDamageable
         base.Initialize(currentCell);
         ElementGraphic = crateGraphic;
         _currentIconIndex = 0;
-        canFall = false;
+        CanFall = false;
+        Clickable = false;
         //Sprite[] icons = blockColors.list[(int)Color].Icons;
         //crateGraphic.InitializeGraphic(this, icons, _currentIconIndex);
     }
@@ -23,7 +24,8 @@ public class Crate : Element, IDamageable
         base.Initialize(currentCell);
         ElementGraphic = crateGraphic;
         _currentIconIndex = 0;
-        canFall = false;
+        CanFall = false;
+        Clickable = false;
         //Sprite[] icons = blockColors.list[(int)Color].Icons;
         //crateGraphic.InitializeGraphic(this, icons, _currentIconIndex, pos);
     }

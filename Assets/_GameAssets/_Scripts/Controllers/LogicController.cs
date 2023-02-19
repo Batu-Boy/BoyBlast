@@ -11,7 +11,7 @@ public partial class LogicController : ControllerBase
 
     public void OnGridInitialized(Grid grid)
     {
-        _grid = grid;
+        _grid = Grid.Instance;
         DetectGroups();
         SetGroupIcons();
     }
@@ -43,6 +43,10 @@ public partial class LogicController : ControllerBase
 
         Element element = cell.GetElement();
         if(!element) return;
+        if (element is IClickable { Clickable: true } clickable)
+        {
+            clickable.ClickAction();
+        }
 
         if (element is Block block)
         {
@@ -65,6 +69,9 @@ public partial class LogicController : ControllerBase
     private void ValidMoveActions()
     {
         FallExistingElements();
+        DetectGroups();//
+        SetGroupIcons();
+        SetSingleIcons();
         FillEmptyCells();
         DetectGroups();//
         SetGroupIcons();

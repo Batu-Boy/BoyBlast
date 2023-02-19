@@ -29,7 +29,7 @@ public partial class LogicController
             if (upMostCell == null) continue;
 
             var upMostElement = upMostCell.GetElement();
-            if (!upMostElement.canFall) continue;
+            if (!upMostElement.CanFall) continue;
 
             currentCell.SetElement(upMostElement);
             upMostElement.SetCell(currentCell);

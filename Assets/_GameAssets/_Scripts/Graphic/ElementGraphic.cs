@@ -40,7 +40,7 @@ public class ElementGraphic : MonoBehaviour
     {
         fallAnimation.Play();
         SetRenderersSortOrder(_element.Position.y);
-        var totalDuration = fallDuration * (_element.Position.y * .055f + 1);
+        var totalDuration = fallDuration;// * (_element.Position.y * .055f + 1);
         transform.DOMove(_element.Position, totalDuration).SetEase(Ease.InSine);
         DOVirtual.DelayedCall(fallDuration, () => fallAnimation.Play("BlockLand"));
         UpdateName();
