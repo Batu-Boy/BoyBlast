@@ -3845,6 +3845,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 1
   blockPrefab: {fileID: 1733941023341456475, guid: 03751e41c13de4de2acf2908ce7135da, type: 3}
+  cratePrefab: {fileID: 1865574031052053534, guid: 98157a09813fc4fdb98e2b3972183edb, type: 3}
   gizmos: 0
   Rows: 7
   Columns: 8

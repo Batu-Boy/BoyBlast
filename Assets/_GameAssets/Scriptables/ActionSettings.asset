@@ -44,3 +44,7 @@ MonoBehaviour:
     name: ShuffleGraphicAction
     <Delay>k__BackingField: 0
     <Duration>k__BackingField: 0.5
+  _damageGraphicAction:
+    name: Damage
+    <Delay>k__BackingField: 0
+    <Duration>k__BackingField: 0

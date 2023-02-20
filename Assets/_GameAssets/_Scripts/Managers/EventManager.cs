@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public static class EventManager
 {
-    public static UnityEvent<List<IDamageable>> OnElementsDamaged = new();
+    public static UnityEvent<List<Element>> OnElementsDamaged = new();
     public static UnityEvent<Bomb,Cell> OnBombCreated = new();
     public static UnityEvent<BlockGroup,Cell> OnBlockGroupDestroy = new ();
     public static UnityEvent<List<Element>> OnElementsFall = new ();

@@ -72,6 +72,7 @@ public class Block : Element, IClickable
     public void ClickAction()
     {
         Debug.Log("Block Click Action");
+        LogicController.Instance.OnBlockClicked(_group, _currentCell);
     }
 }
 

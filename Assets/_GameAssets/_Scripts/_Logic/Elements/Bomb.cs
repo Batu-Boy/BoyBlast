@@ -29,9 +29,10 @@ public class Bomb : Element , IClickable
         Clickable = true;
         bombGraphic.InitializeGraphic(this, icons, _currentIconIndex, pos);
     }
-
+    
     public void ClickAction()
     {
         Debug.Log("Bomb Click Action");
+        LogicController.Instance.OnBombClicked(this, _currentCell);
     }
 }

@@ -13,7 +13,8 @@ public class GraphicActionSettings : ScriptableObject
     [FormerlySerializedAs("_iconChangeAction")] [SerializeField] private IconChangeGraphicAction iconChangeGraphicAction;
     [FormerlySerializedAs("_instantiateAction")] [SerializeField] private InstantiateGraphicAction instantiateGraphicAction;
     [FormerlySerializedAs("_shuffleAction")] [SerializeField] private ShuffleGraphicAction shuffleGraphicAction;
-
+    [SerializeField] private DamageGraphicAction _damageGraphicAction;
+    
 
     private void Awake()
     {
@@ -44,5 +45,6 @@ public class GraphicActionSettings : ScriptableObject
         iconChangeGraphicAction.InitAction(graphicController);
         instantiateGraphicAction.InitAction(graphicController);
         shuffleGraphicAction.InitAction(graphicController);
+        _damageGraphicAction.InitAction(graphicController);
     }
 }

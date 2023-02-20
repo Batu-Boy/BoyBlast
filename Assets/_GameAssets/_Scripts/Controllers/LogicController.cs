@@ -4,6 +4,8 @@ using UnityEngine;
 
 public partial class LogicController : ControllerBase
 {
+    public static LogicController Instance;
+    
     [Header("Debug")]
     [SerializeReference] private List<BlockGroup> _blockGroups = new ();
     
@@ -11,7 +13,8 @@ public partial class LogicController : ControllerBase
 
     public void OnGridInitialized(Grid grid)
     {
-        _grid = Grid.Instance;
+        Instance = this;
+        _grid = grid;
         DetectGroups();
         SetGroupIcons();
     }
@@ -42,28 +45,17 @@ public partial class LogicController : ControllerBase
         if (!_grid.TryGetCell(floorInput, out Cell cell)) return;
 
         Element element = cell.GetElement();
-        if(!element) return;
+        //if(!element) return;
         if (element is IClickable { Clickable: true } clickable)
         {
+            GameController.Instance.ChangeState(GameStates.LogicAction);
+            EventManager.OnValidMove?.Invoke();
+            
             clickable.ClickAction();
+            
+            ValidMoveActions();
+            GameController.Instance.ChangeState(GameStates.GraphicAction);
         }
-
-        if (element is Block block)
-        {
-            if (!block.TryGetBlockGroup(out BlockGroup blockGroup)) return;
-            GameController.Instance.ChangeState(GameStates.LogicAction);
-            EventManager.OnValidMove?.Invoke();
-            OnBlockClicked(blockGroup, cell);
-        }
-        else if (element is Bomb bomb)
-        {
-            GameController.Instance.ChangeState(GameStates.LogicAction);
-            EventManager.OnValidMove?.Invoke();
-            OnBombClicked(bomb, cell);
-        }
-        
-        ValidMoveActions();
-        GameController.Instance.ChangeState(GameStates.GraphicAction);
     }
     
     private void ValidMoveActions()
@@ -78,12 +70,12 @@ public partial class LogicController : ControllerBase
         SetSingleIcons();
     }
     
-    private void OnBombClicked(Bomb bomb, Cell cell)
+    public void OnBombClicked(Bomb bomb, Cell cell)
     {
         DestroyBombRangeElements(bomb,cell);
     }
 
-    private void OnBlockClicked(BlockGroup blockGroup, Cell cell)
+    public void OnBlockClicked(BlockGroup blockGroup, Cell cell)
     {
         DestroyBlockGroup(blockGroup, cell);
         CheckCombo(blockGroup, cell);
@@ -96,26 +88,39 @@ public partial class LogicController : ControllerBase
     private void DestroyBlockGroup(BlockGroup clickedBlockGroup, Cell clickedCell)
     {
         if (clickedBlockGroup.list.Count <= 0) return;
-        List<IDamageable> damagedElements = new List<IDamageable>();
+        List<Element> damagedElements = new List<Element>();
         foreach (Block block in clickedBlockGroup.list)
         {
-            block.Destroy(clickedCell);
             DamageNeighbors(block.GetCell(),ref damagedElements);
+            block.Destroy(clickedCell);
         }
         
         EventManager.OnElementsDamaged?.Invoke(damagedElements);
         EventManager.OnBlockGroupDestroy?.Invoke(clickedBlockGroup, clickedCell);
-
-        _blockGroups.Remove(clickedBlockGroup);
     }
+    
     #endregion
     
     #region DamageNeigborLogic
     
     //TODO: implement
-    private void DamageNeighbors(Cell currentCell, ref List<IDamageable> damagedElements)
+    private void DamageNeighbors(Cell currentCell, ref List<Element> damagedElements)
     {
-        Debug.Log("Implement Neighbor Damages");
+        var neighborCells = currentCell.GetNeighbors();
+        foreach (var neighborCell in neighborCells)
+        {
+            if(neighborCell == null) continue;
+
+            var currentElement = neighborCell.GetElement();
+            if (currentElement is IDamageable damageable)
+            {
+                if (damagedElements.Contains(currentElement)) continue;
+                
+                Debug.Log($"{neighborCell.GetPosition()} damaged");
+                damageable.TakeDamage(currentCell);
+                damagedElements.Add(currentElement);
+            }
+        }
     }
     
     #endregion 

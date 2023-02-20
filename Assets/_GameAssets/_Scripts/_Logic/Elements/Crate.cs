@@ -5,29 +5,28 @@ using UnityEngine;
 public class Crate : Element, IDamageable
 {
     [field: SerializeField] public int Health { get; set; }
+
+    [SerializeField] private Sprite[] crateSprites;
+    [SerializeField] public CrateGraphic crateGraphic;
     
-    [SerializeField] private CrateGraphic crateGraphic;
-    
-    public void Initialize(BlockColor color, Cell currentCell)
+    public void Initialize(int health, Cell currentCell)
     {
         base.Initialize(currentCell);
         ElementGraphic = crateGraphic;
-        _currentIconIndex = 0;
+        Health = health;
+        _currentIconIndex = Health;
         CanFall = false;
-        Clickable = false;
-        //Sprite[] icons = blockColors.list[(int)Color].Icons;
-        //crateGraphic.InitializeGraphic(this, icons, _currentIconIndex);
+        crateGraphic.InitializeGraphic(this, crateSprites, Health);
     }
     
-    public void Initialize(BlockColor color, Cell currentCell,Vector3Int pos)
+    public void Initialize(int health, Cell currentCell,Vector3Int pos)
     {
         base.Initialize(currentCell);
         ElementGraphic = crateGraphic;
-        _currentIconIndex = 0;
+        Health = health;
+        _currentIconIndex = Health;
         CanFall = false;
-        Clickable = false;
-        //Sprite[] icons = blockColors.list[(int)Color].Icons;
-        //crateGraphic.InitializeGraphic(this, icons, _currentIconIndex, pos);
+        crateGraphic.InitializeGraphic(this, crateSprites, Health, pos);
     }
     
     public void TakeDamage(Cell from, int amount = 1)
@@ -38,5 +37,7 @@ public class Crate : Element, IDamageable
             Health = 0;
             Destroy(from);
         }
+
+        _currentIconIndex = Health;
     }
 }

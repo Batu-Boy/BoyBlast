@@ -7,8 +7,6 @@ using Debug = UnityEngine.Debug;
 
 public class Grid
 {
-    public static Grid Instance;
-    
     public int Width { get; }
     public int Height { get; }
     
@@ -19,8 +17,6 @@ public class Grid
     
     public Grid(int width, int height)
     {
-        Instance = this;
-
         Width = width;
         Height = height;
         

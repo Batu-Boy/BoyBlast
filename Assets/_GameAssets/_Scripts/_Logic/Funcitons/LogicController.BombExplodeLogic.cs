@@ -56,6 +56,11 @@ public partial class LogicController
             {
                 if (!newBombs.Contains(currentBomb)) newBombs.Add(currentBomb);
             }
+            else if (currentElement is IDamageable damageable)
+            {
+                damageable.TakeDamage(currentCell);
+                destroyedElements.Add(currentElement);
+            }
             else
             {
                 currentElement.Destroy(bomb.GetCell());

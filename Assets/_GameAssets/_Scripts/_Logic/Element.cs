@@ -6,9 +6,8 @@ public abstract class Element : MonoBehaviour
     [SerializeReference] public ElementGraphic ElementGraphic;
 
     public bool CanFall { get; protected set; }
-    public bool Clickable { get; protected set; }
-
-    private Cell _currentCell;
+    
+    protected Cell _currentCell;
     protected int _currentIconIndex;
 
     protected void Initialize(Cell currentCell)

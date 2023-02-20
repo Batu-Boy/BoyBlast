@@ -7,6 +7,7 @@ public class GridInitializer : MonoBase
     public UnityEvent OnClear;
 
     [SerializeField] private Block blockPrefab;
+    [SerializeField] private Crate cratePrefab;
 
     [Header("Debug")] [SerializeField] private bool gizmos;
     [SerializeField] private int Rows;
@@ -39,10 +40,22 @@ public class GridInitializer : MonoBase
         for (var x = 0; x < Rows; x++)
         for (var y = 0; y < Columns; y++)
         {
-            var block = Instantiate(blockPrefab);
             var cell = _grid.GetCell(x, y);
-            block.Initialize(GetRandomColor(), cell);
-            cell.SetElement(block);
+            Element element;
+            if (x == 0)
+            {
+                var crate = Instantiate(cratePrefab);
+                crate.Initialize(3,cell);
+                element = crate;
+            }
+            else
+            {
+                var block = Instantiate(blockPrefab);
+                block.Initialize(GetRandomColor(), cell);
+                element = block;
+            }
+            
+            cell.SetElement(element);
         }
 
         ArrangeNeighbors();
@@ -55,16 +68,17 @@ public class GridInitializer : MonoBase
         for (var y = 0; y < Columns; y++)
         {
             //Don't need controls actually
-            var tempNeighbors = new Cell[4];
-            if (y > 0)
-                tempNeighbors[0] = _grid.GetCell(x, y - 1);
-            if (x > 0)
-                tempNeighbors[1] = _grid.GetCell(x - 1, y);
-            if (y < Columns - 1)
-                tempNeighbors[2] = _grid.GetCell(x, y + 1);
-            if (x < Rows - 1)
-                tempNeighbors[3] = _grid.GetCell(x + 1, y);
+            var tempNeighbors = new Cell[] { null, null, null, null };
+            tempNeighbors[0] = _grid.GetCell(x, y - 1);
+            tempNeighbors[1] = _grid.GetCell(x - 1, y);
+            tempNeighbors[2] = _grid.GetCell(x, y + 1);
+            tempNeighbors[3] = _grid.GetCell(x + 1, y);
 
+            for (var i = 0; i < tempNeighbors.Length; i++)
+            {
+                Debug.Log($"{i}:{tempNeighbors[i]}");
+            }
+            
             _grid.GetCell(x, y).SetNeighbors(tempNeighbors);
         }
     }
