@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [Serializable]
@@ -49,6 +50,12 @@ public class Cell
     public Vector3Int GetPosition() => new Vector3Int(_x, _y);
     public Cell GetBottomCell() => _grid.GetCell(_x, _y - 1);
     public Cell GetUpperCell() => _grid.GetCell(_x, _y + 1);
+
+    public void DestroyCell()
+    {
+        ClearCell();
+    }
+    
     public void ClearCell() => _element = null;
     
     //DOWN = 0, LEFT = 1, UP = 2, RIGHT = 3

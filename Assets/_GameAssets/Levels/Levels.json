@@ -65,25 +65,25 @@
             "M": 7,
             "N": 8,
             "K": 3,
-            "A": 3,
-            "B": 5,
-            "C": 7,
+            "A": 5,
+            "B": 7,
+            "C": 9,
             "LevelRule": {
-                "MoveCount": 50,
+                "MoveCount": 999,
                 "GoalList": [
                     {
                         "BlockColor": 2,
-                        "Count": 30,
+                        "Count": 300,
                         "Success": false
                     },
                     {
                         "BlockColor": 1,
-                        "Count": 30,
+                        "Count": 300,
                         "Success": false
                     },
                     {
                         "BlockColor": 3,
-                        "Count": 30,
+                        "Count": 300,
                         "Success": false
                     }
                 ]

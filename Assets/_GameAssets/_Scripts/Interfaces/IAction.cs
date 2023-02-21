@@ -7,5 +7,6 @@ public interface IAction
 {
     public float Delay { get; set; }
     public float Duration { get; set;}
-    public void Execute(BlockGraphic blockGraphic);
+    public Action m_Action { get; set; }
+    public void Execute();
 }

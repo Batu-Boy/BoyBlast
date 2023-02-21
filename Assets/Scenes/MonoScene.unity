@@ -1467,16 +1467,16 @@ MonoBehaviour:
   canWin: 1
   _ruleViewModel: {fileID: 8131442772862616987}
   _levelRule:
-    MoveCount: 50
+    MoveCount: 999
     GoalList:
     - BlockColor: 2
-      Count: 30
+      Count: 300
       Success: 0
     - BlockColor: 1
-      Count: 30
+      Count: 300
       Success: 0
     - BlockColor: 3
-      Count: 30
+      Count: 300
       Success: 0
 --- !u!1001 &884902657
 PrefabInstance:
@@ -1667,7 +1667,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917260922}
-  - component: {fileID: 917260921}
   m_Layer: 0
   m_Name: GraphicAction
   m_TagString: Untagged
@@ -1675,23 +1674,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &917260921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917260920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6885d4cbe1d24365a237ce3a44bd7eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultDestroyAction:
-    Name: 
-    <Delay>k__BackingField: 1
-    <Duration>k__BackingField: 1
-  actionList: []
 --- !u!4 &917260922
 Transform:
   m_ObjectHideFlags: 0
@@ -2793,24 +2775,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb68fc081c3447bfac973426e8798fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActionSettings:
-    fallDuration: 0
-    instantiateDuration: 0.3
-    iconChangeDuration: 0
-    shuffleDuration: 0.5
-    bombCreateDuration: 0
-    bombExplodeDuration: 0.2
-    destroyDefaultDuration: 0
-    combo1Duration: 0.3
-    combo2Duration: 0.3
-    combo3Duration: 0.3
-    blockFallDuration: 0.3
-    instantiatedBlockFallDuration: 0.35
+  ActionSettings: {fileID: 11400000, guid: 6787b1e7aaf574851865a7ce2dd70ca1, type: 2}
   blockColors: {fileID: 11400000, guid: cc9cc187c8623460b846a1effbebe947, type: 2}
   _graphicData: {fileID: 11400000, guid: e88e9fc6b7ef84f59aefb67a5a663adc, type: 2}
-  _blockPool: {fileID: 1385449772}
   cellParent: {fileID: 634121278}
-  blockParent: {fileID: 1158999228}
+  GraphicActions: []
+  _elements: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1422991365
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,108 +3221,83 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockGroups:
-  - rid: 3154426670320713728
-  - rid: 3154426670320713729
-  - rid: 3154426670320713730
-  - rid: 3154426670320713731
-  - rid: 3154426670320713732
-  - rid: 3154426670320713733
-  - rid: 3154426670320713734
-  - rid: 3154426670320713735
-  - rid: 3154426670320713736
-  - rid: 3154426670320713737
-  - rid: 3154426670320713738
+  - rid: 3154426719014486333
+  - rid: 3154426719014486334
+  - rid: 3154426719014486335
+  - rid: 3154426719014486336
+  - rid: 3154426719014486337
+  - rid: 3154426719014486338
+  - rid: 3154426719014486339
+  - rid: 3154426719014486340
+  - rid: 3154426719014486341
+  - rid: 3154426719014486342
+  - rid: 3154426719014486343
+  - rid: 3154426719014486344
+  - rid: 3154426719014486345
   references:
     version: 2
     RefIds:
-    - rid: 3154426670320713728
+    - rid: 3154426719014486333
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
-        Color: 1
+        Color: 3
         ComboIndex: 0
         list:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426670320713729
+    - rid: 3154426719014486334
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 2
-        ComboIndex: 3
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426670320713730
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 1
         ComboIndex: 0
         list:
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426670320713731
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486335
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 3
-        ComboIndex: 0
+        ComboIndex: 1
         list:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426670320713732
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 1
-        ComboIndex: 0
-        list:
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426670320713733
+        - {fileID: 0}
+    - rid: 3154426719014486336
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 2
-        ComboIndex: 1
-        list:
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-        - {fileID: 0}
-    - rid: 3154426670320713734
-      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
-      data:
-        Color: 3
         ComboIndex: 0
         list:
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426670320713735
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486337
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
-        Color: 3
-        ComboIndex: 1
+        Color: 2
+        ComboIndex: 0
         list:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
+    - rid: 3154426719014486338
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 1
+        ComboIndex: 0
+        list:
         - {fileID: 0}
-    - rid: 3154426670320713736
+        - {fileID: 0}
+    - rid: 3154426719014486339
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 1
@@ -3359,7 +3307,20 @@ MonoBehaviour:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426670320713737
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486340
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486341
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 3
@@ -3368,10 +3329,36 @@ MonoBehaviour:
         - {fileID: 0}
         - {fileID: 0}
         - {fileID: 0}
-    - rid: 3154426670320713738
+    - rid: 3154426719014486342
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486343
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 3
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486344
       type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
       data:
         Color: 1
+        ComboIndex: 0
+        list:
+        - {fileID: 0}
+        - {fileID: 0}
+        - {fileID: 0}
+    - rid: 3154426719014486345
+      type: {class: BlockGroup, ns: , asm: Assembly-CSharp}
+      data:
+        Color: 2
         ComboIndex: 0
         list:
         - {fileID: 0}
@@ -3858,6 +3845,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 1
   blockPrefab: {fileID: 1733941023341456475, guid: 03751e41c13de4de2acf2908ce7135da, type: 3}
+  cratePrefab: {fileID: 1865574031052053534, guid: 98157a09813fc4fdb98e2b3972183edb, type: 3}
   gizmos: 0
   Rows: 7
   Columns: 8
@@ -3955,20 +3943,20 @@ MonoBehaviour:
       M: 7
       N: 8
       K: 3
-      A: 3
-      B: 5
-      C: 7
+      A: 5
+      B: 7
+      C: 9
       LevelRule:
-        MoveCount: 50
+        MoveCount: 999
         GoalList:
         - BlockColor: 2
-          Count: 30
+          Count: 300
           Success: 0
         - BlockColor: 1
-          Count: 30
+          Count: 300
           Success: 0
         - BlockColor: 3
-          Count: 30
+          Count: 300
           Success: 0
       SelectedColors: 020000000100000003000000
       IsRandom: 0

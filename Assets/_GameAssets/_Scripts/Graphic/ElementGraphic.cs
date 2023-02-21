@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ElementGraphic : MonoBehaviour
@@ -7,7 +6,7 @@ public class ElementGraphic : MonoBehaviour
     [SerializeField] private GameObject glow;
     [SerializeField] private Animation fallAnimation;
     [SerializeField] private SpriteRenderer[] iconRenderers;
-    
+
     [HideInInspector] [SerializeReference] protected Element _element;
     private SpriteRenderer _currentIcon;
 
@@ -20,7 +19,7 @@ public class ElementGraphic : MonoBehaviour
         CloseAllIcons();
         InitCurrentIcon(iconIndex);
     }
-    
+
     public virtual void InitializeGraphic(Element element, Sprite[] icons, int iconIndex, Vector3Int position)
     {
         _element = element;
@@ -30,7 +29,7 @@ public class ElementGraphic : MonoBehaviour
         CloseAllIcons();
         InitCurrentIcon(iconIndex);
     }
-    
+
     private void OnDestroy()
     {
         StopAllCoroutines();
@@ -41,19 +40,14 @@ public class ElementGraphic : MonoBehaviour
     {
         fallAnimation.Play();
         SetRenderersSortOrder(_element.Position.y);
-        float totalDuration = fallDuration * (_element.Position.y * .055f + 1);
+        var totalDuration = fallDuration;// * (_element.Position.y * .055f + 1);
         transform.DOMove(_element.Position, totalDuration).SetEase(Ease.InSine);
-        DOVirtual.DelayedCall(fallDuration,() => fallAnimation.Play("BlockLand"));
+        DOVirtual.DelayedCall(fallDuration, () => fallAnimation.Play("BlockLand"));
         UpdateName();
     }
 
-    public virtual void DestroyTest()
-    {
-        
-    }
-    
     #region IconFuncions
-    
+
     private void InitIcons(Sprite[] icons)
     {
         for (var i = 0; i < iconRenderers.Length; i++)
@@ -62,19 +56,20 @@ public class ElementGraphic : MonoBehaviour
             iconRenderers[i].sortingLayerName = "BlockOnGrid";
             iconRenderers[i].maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
-        
+
         SetRenderersSortOrder(_element.Position.y);
     }
+
     private void InitCurrentIcon(int index)
     {
-        SpriteRenderer iconRenderer = iconRenderers[index];
+        var iconRenderer = iconRenderers[index];
         iconRenderer.SetActiveGameObject(true);
         _currentIcon = iconRenderer;
     }
 
     public void ChangeIconAtIndex(int index)
     {
-        SpriteRenderer targetIcon = iconRenderers[index];
+        var targetIcon = iconRenderers[index];
         if (targetIcon == _currentIcon) return;
 
         _currentIcon.SetActiveGameObject(false);
@@ -89,40 +84,35 @@ public class ElementGraphic : MonoBehaviour
         _currentIcon.sortingOrder = _element.Position.y;
         glow.SetActive(true);
     }
-    
+
     protected void SetRenderersSortOrder(int order)
     {
-        foreach (var spriteRenderer in iconRenderers)
-        {
+        foreach (var spriteRenderer in iconRenderers) 
             spriteRenderer.sortingOrder = order;
-        }
     }
 
     protected void CloseAllIcons()
     {
-        foreach (var iconRenderer in iconRenderers)
-        {
+        foreach (var iconRenderer in iconRenderers) 
             iconRenderer.SetActiveGameObject(false);
-        }
     }
-    
+
     protected void ResetIconValues()
     {
         CloseAllIcons();
         _currentIcon = iconRenderers[0];
         glow.SetActive(false);
     }
-    
+
     #endregion
 
     public virtual void Explode()
     {
         
     }
-    
+
     private void UpdateName()
     {
         name = $"{_element.GetType()}({_element.Position.x},{_element.Position.y})";
     }
-
 }

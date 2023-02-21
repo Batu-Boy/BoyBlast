@@ -33,12 +33,6 @@ public class BlockGraphic : ElementGraphic
         }
     }
 
-    public override void DestroyTest()
-    {
-        base.DestroyTest();
-        Debug.Log("Destroy");
-    }
-
     public override void Explode()
     {
         base.Explode();
@@ -51,7 +45,6 @@ public class BlockGraphic : ElementGraphic
         _particleHandler.PlayDestroy();
         CloseAllIcons();
         yield return new WaitForSeconds(.25f);
-        //Debug.Log($"{name} Destroyed!");
         ResetIconValues();
         BlockPool.Instance.ReturnItem(_element as Block);
     }
@@ -62,12 +55,11 @@ public class BlockGraphic : ElementGraphic
         BringForward();
         var position = transform.position;
         Vector3 targetDirection = (clickedPos - position).normalized;
-        float distanceFactor = .15f;
+        float distanceFactor = .25f;
         DOTween.Sequence()
-            .Append(transform.DOMove(position - (targetDirection * distanceFactor), .15f).SetEase(Ease.OutSine))
-            .Append(transform.DOMove(clickedPos, .25f).SetEase(Ease.InSine));
+            .Append(transform.DOMove(position - (targetDirection * distanceFactor), .08f).SetEase(Ease.OutSine))
+            .Append(transform.DOMove(clickedPos, .16f).SetEase(Ease.InSine));
         yield return new WaitForSeconds(.4f);
-        //Debug.Log($"{name} Destroyed!");,
         ResetIconValues();
         yield return new WaitForSeconds(.25f);
         BlockPool.Instance.ReturnItem(_element as Block);
